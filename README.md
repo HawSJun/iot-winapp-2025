@@ -442,8 +442,9 @@ IoT 개발자 C#/WinApp 리포지토리 2025
     - DlgSave 이름으로 사용
     - 코딩으로 설정 내용 작성
 
-- ColorDialog : 색상 선택하는 다이얼로그 컨트롤
+- `ColorDialog` : 색상 선택하는 다이얼로그 컨트롤
     - DlgColor 이름 사용
+    - 코딩으로 설정내요 작성
 
 - 대부분 컨트롤 속성
     - Anchor : 현재 컨트롤을 폼의 사이즈가 조정될 때 어디에 고정시키는지 설정
@@ -480,8 +481,6 @@ IoT 개발자 C#/WinApp 리포지토리 2025
 
         <img src="./image/cs0007.png" width="600">
 
-        https://github.com/user-attachments/assets/83e2e76f-e8f0-4472-8d8f-01911f36a50a
-
     3. 컬렉션 - [소스](./day04/Day04Study/SyntaxWinApp02/FrmMain.cs)
         - 배열, 리스트, 딕셔너리, 큐, 스택 등 여러 데이터를 저장하고 다루는 구조를 가진 객체를 통칭
 
@@ -491,7 +490,7 @@ IoT 개발자 C#/WinApp 리포지토리 2025
 
         <img src="./image/cs0009.png" width="600">
 
-    4. 파일 입출력
+    4. 파일 입출력 - [소스](./day04/Day04Study/SyntaxWinApp03/FrmMain.cs)
         - 파일 쓰기, 읽기 기능
         - SaveFileDialog, OpenFileDialog, ColorDialog 컨트롤 사용
 
