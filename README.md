@@ -1094,6 +1094,10 @@ IoT 개발자 C#/WinApp 리포지토리 2025
     
     <img src="./image/ToyProject01.png" width="400">
 
+    
+    https://github.com/user-attachments/assets/2c3b0231-acc7-4439-9b22-4c6044b6f9e7
+
+
 - 기능 및 설명
     1. targetR, targetG, targetB, targetA
         - 색상을 적용할 때 사용할 RGBA 값을 버튼 클릭 시 저장해두기 위해 선언한 변수
