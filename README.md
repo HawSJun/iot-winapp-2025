@@ -806,12 +806,17 @@ IoT 개발자 C#/WinApp 리포지토리 2025
         - 모바일, UWP 등도 동일하게 개발 가능
 
 - WPF 컴포넌트(실무에서 쓰이는 UI컴포넌트, 윈앱도 존재) - Third Party
-    - (참조) - https://github.com/Carlos487/awesome-wpf
-    - 상용 컴포넌트 제외
-    - **(무료)MahApps.Metro** - https://mahapps.com/
-    - **WPF UI** - https://github.com/lepoco/wpfui
-    - Material Design In XAML Toolkit - http://materialdesigninxaml.net/
+    - 참조 - https://github.com/Carlos487/awesome-wpf
 
+    - 상용 컴포넌트 제외
+
+    - **(무료)MahApps.Metro** - https://mahapps.com/
+         - github - https://github.com/MahApps/MahApps.Metro
+
+    - **WPF UI** - https://wpfui.lepo.co/
+        - https://github.com/lepoco/wpfui
+
+    - Material Design In XAML Toolkit - http://materialdesigninxaml.net/
 
 ### WPF 개발방법 및 컨트롤 1
 - **WPF 애플리케이션** 선택 - [소스](./day07/Day07Study/WpfStudyApp01/MainWindow.xaml.cs)
@@ -961,6 +966,7 @@ IoT 개발자 C#/WinApp 리포지토리 2025
 ### MahApps.Metro 프레임워크
 - 공식사이트 - https://mahapps.com/
     - 최소한의 노력으로 Metro UI/Modern UI를 적용시킬수 있는 프레임워크
+    - 2011년 개발 시작, 2014년 1.0 배포, 현재 버전 2.4.10
     - Metro UI, Modern UI - MS에서 시작한 디자인 스타일
     - 깔끔하고 입체감을 최소화 시킴
 
@@ -973,6 +979,21 @@ IoT 개발자 C#/WinApp 리포지토리 2025
     3. https://github.com/MahApps/IconPacks.Browser/releases
         - IconPacks.Browser-net8-v2.0.0.zip 다운로드
     4. App.xaml에 필요한 리소스 코드 복붙
+
+        ```xml
+        <Application.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                    <!-- Theme setting -->
+                    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Application.Resources>
+        ```
+
     5. MainWindow.xaml.cs
         - Window -> MetroWindow 변경
     6. MainWindow.xaml
@@ -994,6 +1015,117 @@ IoT 개발자 C#/WinApp 리포지토리 2025
 
 ## 9일차
 
+### MahApps.Metro 프레임워크
+- 컨트롤 사용법 - [소스](./day09/Day09Study/WpfStudyApp05/MainWindow.xaml)
+    - ProgressBar, MetroProgressBar, ProgressRing
+    - TabControl
+
+### VS Tip
+- 프로젝트는 제거해도 폴더와 파일은 그대로 존재
+    - 윈도우 탐색기에서 폴더 삭제 요망
+
+### WPF UI 프레임워크
+- 개요
+    - Fluent UI라 이름의 Modern UI의 한 스타일 UI 프레임워크
+    - 2021년 1.0 배포, 현재 버전 4.0.2
+
+- 기본 사용법 - [소스](./day09/Day09Study/WpfStudyApp07/MainWindow.xaml)
+    - NuGet 패키지 관리자 > WPF-UI 검색 후 설치
+    - VS Extension for WPF UI
+        - 메뉴 확장 > 확장 관리
+        - WPF-UI 검색 후 설치
+        - VS 종료
+        - VSIS Installer 시작 > Modify
+    - VS Project > WPF UI 프로젝트 선택
+    - MainWindow.xaml을 추가 생성
+    - App.xaml.cs 오픈 - [소스](./day09/Day09Study/WpfStudyApp07/App.xaml.cs)
+
+        ```cs
+         private static readonly IHost _host = Host
+            .CreateDefaultBuilder()
+            .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(AppContext.BaseDirectory)); })
+            .ConfigureServices((context, services) =>
+            {
+                //throw new NotImplementedException("No service or window was registered.");
+                // Singleton 디자인패턴 방식으로 MainWindow을 등록
+                services.AddSingleton<MainWindow>();
+            }).Build();
+
+        private async void OnStartup(object sender, StartupEventArgs e)
+        {
+            await _host.StartAsync();
+            // MainWindow 인스턴스 생성
+            var mainWindow = _host.Services.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+        }
+        ```
+
+     - MainWindow.xaml xmlns:ui 추가. App.xaml과 동일
+
+        ```xml
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        ```
+    
+    - MainWidow.xaml Window -> ui:FluentWindow 변경
+    - Grid 내 타이틀바 추가
+
+        ```xml
+        <ui:TitleBar Title="WPF UI App" />
+        ```
+
+    - 실행결과
+
+        <img src="./image/cs0022.png" width="600">
+
+        [Dark Theme]
+
+
+        <img src="./image/cs0023.png" width="600">
+
+        [Light Theme]
+
+
 ## 10일차
 
 ### 코딩테스트
+
+#### ToyProject
+- RGBA 색상 조합 프로그램
+    
+    <img src="./image/ToyProject01.png" width="400">
+
+- 기능 및 설명
+    1. targetR, targetG, targetB, targetA
+        - 색상을 적용할 때 사용할 RGBA 값을 버튼 클릭 시 저장해두기 위해 선언한 변수
+        - 여러 메서드 간에 값을 공유하기 위한 역할       
+
+    2. FrmMain()
+        - `초기 UI 상태 설정`을 담당
+        - 텍스트박스 초기값 설정 (0, 255)
+        - 각각의 ProgressBar의 최대값 설정 (255, 100)
+
+    3. 텍스트박스 값 변경 이벤트 (TxtRed_TextChanged, TxtGreen_TextChanged 등)
+        - RGBA 텍스트박스를 수정할 때마다 실행되는 함수
+        - 텍스트박스에 입력된 값을 ClampTextbox()를 통해 0~255 범위로 제한
+        - 해당하는 스크롤바 및 ProgressBar 값도 실시간으로 동기화
+        - 즉, 텍스트박스에 숫자만 넣으면 나머지 UI도 자동으로 맞춰주는 역할
+
+    4. 스크롤바 이벤트 (HscRed_Scroll, HscGreen_Scroll 등)
+        - 스크롤바를 움직였을 때 실행되는 이벤트
+        - 스크롤바의 값을 텍스트박스에 표시 및 ProgressBar에도 해당 값 반영
+        - 즉, 텍스트박스와 ProgressBar를 스크롤 값에 맞게 실시간 동기화
+
+    5. ClampTextbox(TextBox tb)
+        - 텍스트박스에 잘못된 값이 들어왔을 때 `자동으로 보정`해주는 함수
+        - ex) 빈 문자열 입력 -> 0으로 처리, 255를 넘는 값 입력 -> 255로 제한
+
+    6. BtnColor_Click()
+        - `적용` 버튼을 눌렀을 때 실행되는 메서드
+        - 텍스트박스에 입력된 RGBA 값을 읽어와 targetR~A 변수에 저장
+        - `비동기 루프`를 통해 PrgTotal을 0~100%로 부드럽게 증가
+        - 100%에 도달하면 색상을 적용하는 SetFinalColor() 호출
+
+    7. SetFinalColor()
+        - 퍼센트 ProgressBar가 100%에 도달했을 때 호출되는 함수
+        - targetR~A 값을 이용해 PanRGBA 패널의 배경색을 설정
+        - `색상 적용 완료`라는 메시지를 MessageBox로 출력

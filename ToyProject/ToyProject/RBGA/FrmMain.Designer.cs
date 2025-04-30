@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             PanRGBA = new Panel();
             label1 = new Label();
             label2 = new Label();
@@ -52,7 +51,6 @@
             TxtAlpha = new TextBox();
             LblPercent = new Label();
             BtnColor = new Button();
-            Timer = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
             // PanRGBA
@@ -272,10 +270,6 @@
             BtnColor.UseVisualStyleBackColor = true;
             BtnColor.Click += BtnColor_Click;
             // 
-            // Timer
-            // 
-            Timer.Tick += Timer_Tick;
-            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -338,6 +332,5 @@
         private TextBox TxtAlpha;
         private Label LblPercent;
         private Button BtnColor;
-        private System.Windows.Forms.Timer Timer;
     }
 }

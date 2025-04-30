@@ -19,9 +19,6 @@
             PrgBlue.Maximum = 255;
 
             PrgTotal.Maximum = 100;
-
-            Timer.Interval = 20;
-            Timer.Enabled = false;
         }
 
         private void TxtRed_TextChanged(object sender, EventArgs e)
@@ -90,7 +87,7 @@
             }
         }
 
-        private void BtnColor_Click(object sender, EventArgs e)
+        private async void BtnColor_Click(object sender, EventArgs e)
         {
             targetR = ClampTextbox(TxtRed);
             targetG = ClampTextbox(TxtGreen);
@@ -98,28 +95,20 @@
             targetA = ClampTextbox(TxtAlpha);
 
             PrgTotal.Value = 0;
-            Timer.Start();
+            for (int i = 0; i <= 100; i++)
+            {
+                PrgTotal.Value = i;
+                LblPercent.Text = $"{i}%";
+                await Task.Delay(10);
+            }
+
+            SetFinalColor(); 
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            if (PrgTotal.Value < 100)
-            {
-                PrgTotal.Value += 1;
-                LblPercent.Text = $"{PrgTotal.Value}%";
-            }
-            else
-            {
-                Timer.Stop();
-                SetFinalColor();
-            }
-        }
         private void SetFinalColor()
         {
             PanRGBA.BackColor = Color.FromArgb(targetA, targetR, targetG, targetB);
 
-            int rgbSum = targetR + targetG + targetB;
-            int percent = (int)((rgbSum / 765.0) * 100);
             PrgTotal.Value = 100;
             LblPercent.Text = "100%";
 
